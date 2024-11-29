@@ -19,7 +19,7 @@ class Turn
     private ?array $field = null;
 
     #[ORM\Column]
-    private bool $isRedo;
+    private bool $isRedo = false;
 
     #[ORM\ManyToOne(inversedBy: 'turns')]
     #[ORM\JoinColumn(nullable: false)]
