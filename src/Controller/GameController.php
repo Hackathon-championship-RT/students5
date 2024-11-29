@@ -51,7 +51,7 @@ class GameController extends AbstractController
     #[Route('/game/{id}/match', name: 'match', format: 'json')]
     public function matchTiles(Request $request, Game $game)
     {
-        $rawData = json_decode($request->request->get('field'), true);
+        $rawData = json_decode($request->getContent(), true);
         $output = array_map(fn($el) => new Tile($el['x'], $el['y'], $el['z'], $el['t']), $rawData);
         $turn = new Turn();
         $turn->setGame($game);
