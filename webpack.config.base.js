@@ -66,6 +66,7 @@ module.exports = {
     ],
     entry: {
         mainPage: './js/apps/mainPage/index.js',
+        mahjong: './js/apps/mahjong/index.js',
     },
     output: {
         path: path.resolve(__dirname, './js/dist/'),
