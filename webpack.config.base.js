@@ -6,8 +6,9 @@ module.exports = {
     resolve: {
         alias: {
             '@main-page': path.resolve(__dirname, 'js/apps/mainPage'),
+            '@icons': path.resolve(__dirname, 'design'),
         },
-        extensions: ['.js', '.vue'],
+        extensions: ['.js', '.vue', '.svg'],
     },
     cache: {
         type: 'filesystem',
@@ -25,6 +26,21 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: 'svgo-loader',
+                        options: {
+                            plugins: [
+                                { name: 'removeTitle', active: true },
+                                { name: 'convertColors', params: { shorthex: false } },
+                                { name: 'convertPathData', active: false }
+                            ]
+                        },
+                    },
+                ],
             },
             {
                 test: /\.css$/,

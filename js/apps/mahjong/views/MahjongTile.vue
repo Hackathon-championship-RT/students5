@@ -16,6 +16,8 @@
   </template>
   
   <script>
+//   import Audi from "@icons/audi.svg";
+
   export default {
     props: {
       carId: Number,
@@ -24,7 +26,7 @@
     },
     data() {
       return {
-        imageErrorFlag: false, // Флаг ошибки загрузки изображения
+        imageErrorFlag: false,
       };
     },
     computed: {
@@ -39,6 +41,7 @@
       tileImage() {
         if (this.carId == 1)
             return `https://i.postimg.cc/VNs23s58/audi.png`; // Статичное изображение
+            // return "Audi";
         if (this.carId == 2)
             return 'https://i.postimg.cc/pTGpqRcm/bmw.png';
         if (this.carId == 3)
