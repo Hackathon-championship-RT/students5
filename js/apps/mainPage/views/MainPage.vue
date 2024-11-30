@@ -46,7 +46,7 @@
           </label>
 
           <!-- Кнопка для начала игры -->
-          <a href="/mahjong" class="submit-button">Играть</a>
+          <button type="submit" class="submit-button">Играть</button>
         </form>
       </div>
     </div>
@@ -79,7 +79,7 @@ export default {
 
       try {
         console.log("Отправка запроса...");
-        const response = await axios.post("/game", {
+        const response = await axios.post("/api/start-game", {
           userUuid: userUuid.value,
           settings: settings.value,
         });
@@ -89,10 +89,11 @@ export default {
         // Закрываем модальное окно после успешного запроса
         showModal.value = false;
 
-        // Перенаправление, если сервер вернул URL
-        if (response.data.redirectUrl) {
-          console.log("Перенаправление на:", response.data.redirectUrl);
-          window.location.href = response.data.redirectUrl;
+        // Перенаправление на страницу gameboard
+        if (response.status === 200) {
+          window.location.href = "/gameboard";
+        } else {
+          alert("Ошибка при старте игры!");
         }
       } catch (error) {
         console.error("Ошибка при отправке запроса:", error);

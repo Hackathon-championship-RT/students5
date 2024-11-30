@@ -18,6 +18,7 @@
         @tile-clicked="handleTileClick(tile)"
         :class="{
           highlighted: tile === firstTile || tile === secondTile,
+          selected: tile === firstTile || tile === secondTile,
           shake: secondTile && secondTile.id === tile.id && firstTile.carId !== secondTile.carId,
         }"
         :style="tile.style"
@@ -29,6 +30,11 @@
     :visible="carInfoVisible" 
     @hide="carInfoVisible = false" 
   />
+
+  <AdModal
+    :visible="adModalVisible"
+    @hide="adModalVisible = false"
+  />
   </div>
 </template>
 
@@ -36,11 +42,13 @@
 import MahjongTile from './MahjongTile.vue';
 import tilesData from './tiles.json';
 import CarInfo from "./CarInfo.vue";
+import AdModal from "./AdModal.vue";
 
 export default {
   components: {
     MahjongTile,
     CarInfo,
+    AdModal,
   },
   data() {
     return {
@@ -50,6 +58,7 @@ export default {
       miniCars: [],
       selectedCar: null, // Выбранный автомобиль
     carInfoVisible: false, 
+    adModalVisible: false,
     };
   },
   created() {
@@ -126,15 +135,17 @@ this.tiles.forEach((tile) => {
     showCarInfo(carId) {
     const carDetails = this.getCarDetails(carId);
     this.selectedCar = carDetails;
-    this.carInfoVisible = true;
+    if (carId != -100)
+      this.carInfoVisible = true;
   },
   getCarDetails(carId) {
     // Данные об автомобилях
     const carData = {
       1: { brand: "Audi", description: "Надежный автомобиль из Германии." },
       2: { brand: "BMW", description: "Элитный бренд из Германии." },
-      3: { brand: "Porsche", description: "Быстрый автомобиль спорткар." },
-      4: { brand: "Volkswagen", description: "Семейный автомобиль"}
+      3: { brand: "Porche", description: "Современный спорткар." },
+      4: { brand: "VolksWagen", description: "Семейный автомобиль." },
+      // Добавьте остальные марки по вашему выбору
     };
     return carData[carId] || { brand: "Неизвестно", description: "Описание отсутствует." };
   },
@@ -146,6 +157,10 @@ this.tiles.forEach((tile) => {
         setTimeout(() => {
           this.animateMerge();
         }, 300);
+        if (this.firstTile.carId === -100) {
+        // Открываем модальное окно для рекламы
+        this.adModalVisible = true;
+      }
       } else {
         setTimeout(() => {
           this.firstTile.highlighted = false;
@@ -255,6 +270,7 @@ setTimeout(() => {
 .tile {
   transition: background-color 0.3s, transform 0.2s;
 }
+
 
 .tile.highlighted {
   background-color: #30FEFE;

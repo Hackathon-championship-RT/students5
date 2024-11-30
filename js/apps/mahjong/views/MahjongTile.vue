@@ -82,6 +82,13 @@ export default {
   background-color: #FFFFFF; /* Базовый фон, для случаев, когда carId не -100 */
 }
 
+.tile.selected {
+    background-color: #30a8ff; /* Голубой цвет */
+    transform: scale(1.2); /* Немного увеличим размер для выделения */
+    box-shadow: 0 4px 15px rgba(0, 136, 255, 0.6); /* Светящийся эффект */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
 .tile.hidden {
   opacity: 0;
   pointer-events: none;
