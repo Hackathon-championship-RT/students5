@@ -209,7 +209,7 @@
   .mini-car {
     position: absolute;
     opacity: 1;
-    transition: transform 0.4s ease-out, opacity 0.6s ease-out;
+    transition: transform 0.s ease-out, opacity 0.6s ease-out;
     background-size: cover;
     background-position: center;
     border-radius: 4px;
