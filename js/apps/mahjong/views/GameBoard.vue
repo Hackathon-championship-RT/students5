@@ -196,8 +196,10 @@
   }
   
   .tile.highlighted {
-    background-color: #ffffff;
+    background-color: #30FEFE;
     transform: scale(1.1);
+    box-shadow: 5px 5px 0px #000000,
+    5px 5px 10px rgba(0, 0, 0, 0.8);
   }
   
   .tile.shake {
@@ -207,7 +209,7 @@
   .mini-car {
     position: absolute;
     opacity: 1;
-    transition: transform 0.4s ease-out, opacity 0.6s ease-out;
+    transition: transform 0.s ease-out, opacity 0.6s ease-out;
     background-size: cover;
     background-position: center;
     border-radius: 4px;
