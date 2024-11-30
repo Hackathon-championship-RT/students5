@@ -9,13 +9,10 @@ use App\Entity\TileType;
 use App\Repository\TileTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
-use Symfony\Component\HttpKernel\Attribute\MapUploadedFile;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class TileTypeController extends AbstractController
 {
@@ -48,6 +45,7 @@ class TileTypeController extends AbstractController
         $tileType->setDescription($tileTypeDto->description);
         $tileType->setCategory($tileTypeDto->category);
         $tileType->setCountry($tileTypeDto->country);
+        $tileType->setImagePath($tileTypeDto->imagePath);
 
         $entityManager->persist($tileType);
         $entityManager->flush();
@@ -62,6 +60,7 @@ class TileTypeController extends AbstractController
         $tileType->setDescription($tileTypeDto->description);
         $tileType->setCategory($tileTypeDto->category);
         $tileType->setCountry($tileTypeDto->country);
+        $tileType->setImagePath($tileTypeDto->imagePath);
 
         $entityManager->flush();
 
@@ -77,32 +76,18 @@ class TileTypeController extends AbstractController
         return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route(
-        '/tile-types/{id}/cover',
-        name: 'tile_cover',
-        requirements: ['id' => '\d+'],
-        methods: ['POST'],
-        format: 'json'
-    )]
+    #[Route('/tile-types/{id}/cover', name: 'tile_cover', requirements: ['id' => '\d+'], methods: ['POST'], format: 'json')]
     public function uploadCover(
         TileType               $tileType,
-        #[MapUploadedFile([
-            new Assert\File(mimeTypes: ['image/png', 'image/jpeg']),
-            new Assert\Image(maxWidth: 3840, maxHeight: 2160)
-        ])]
-        UploadedFile           $cover,
+        #[MapRequestPayload] array $payload,
         EntityManagerInterface $entityManager
     ): JsonResponse
     {
-        $dir = $this->getParameter('kernel.project_dir') . '/public/uploads';
-        $originalFilename = pathinfo($cover->getClientOriginalName(), PATHINFO_FILENAME);
-        $filename = $originalFilename . mt_rand() . '.' . $cover->guessExtension();
-        $cover->move(
-            $dir,
-            $filename
-        );
+        if (!isset($payload['imagePath']) || !is_string($payload['imagePath'])) {
+            return $this->json(['error' => 'Invalid or missing imagePath'], Response::HTTP_BAD_REQUEST);
+        }
 
-        $tileType->setImagePath($filename);
+        $tileType->setImagePath($payload['imagePath']);
         $entityManager->flush();
 
         return $this->json($tileType);

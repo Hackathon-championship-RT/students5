@@ -12,6 +12,9 @@ readonly class TileTypeDto
         #[Assert\NotBlank(message: 'Name is required.')]
         public string $name,
 
+        #[Assert\NotBlank(message: 'Image path is required.')]
+        public string $imagePath,
+
         public string $category,
 
         public string $country,
