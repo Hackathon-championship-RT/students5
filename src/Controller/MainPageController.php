@@ -17,6 +17,6 @@ class MainPageController extends AbstractController
     )]
     public function index(): Response
     {
-        return $this->render('pages/mahjong.html.twig');
+        return $this->render('pages/mainPage.html.twig');
     }
 }
