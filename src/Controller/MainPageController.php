@@ -29,4 +29,13 @@ class MainPageController extends AbstractController
     {
         return $this->render('pages/mahjong.html.twig');
     }
+    #[Route(
+        '/admin',
+        name: 'app_admin',
+        methods: ['GET']
+    )]
+    public function adminIndex(): Response
+    {
+        return $this->render('pages/admin.html.twig');
+    }
 }

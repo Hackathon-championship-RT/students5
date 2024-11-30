@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('admin.bundle.js') }}"></script>
+{% endblock %}
+{% block body %}
+<div id="app"></div>
+    <script>
+        window.mountadmin('#app');
+    </script>
+{% endblock %}
