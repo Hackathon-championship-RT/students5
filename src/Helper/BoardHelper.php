@@ -9,12 +9,12 @@ class BoardHelper
     public static function generateBoard(): array
     {
         return [
-            new Tile(0, 0, 0, 1),
-            new Tile(2, 0, 0, 2),
-            new Tile(4, 0, 0, 1),
-            new Tile(6, 0, 0, 2),
-            new Tile(1, 0, 1, 3),
-            new Tile(5, 0, 1, 3)
+            (new Tile())->assignFromArray([0, 0, 0, 1]),
+            (new Tile())->assignFromArray([2, 0, 0, 2]),
+            (new Tile())->assignFromArray([4, 0, 0, 1]),
+            (new Tile())->assignFromArray([6, 0, 0, 2]),
+            (new Tile())->assignFromArray([1, 0, 1, 3]),
+            (new Tile())->assignFromArray([5, 0, 1, 3])
         ];
     }
 }

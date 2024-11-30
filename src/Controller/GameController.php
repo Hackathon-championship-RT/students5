@@ -9,9 +9,11 @@ use App\Entity\Game;
 use App\Entity\Turn;
 use App\Helper\BoardHelper;
 use App\Helper\Tile;
+use App\Repository\GameRepository;
 use App\Repository\TurnRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,7 +22,8 @@ class GameController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly TurnRepository         $turnRepository
+        private readonly TurnRepository         $turnRepository,
+        private readonly GameRepository         $gameRepository,
     )
     {
     }
@@ -31,7 +34,7 @@ class GameController extends AbstractController
         methods: ['POST'],
         format: 'json'
     )]
-    public function startGame(#[MapRequestPayload] UserDto $userDto)
+    public function startGame(#[MapRequestPayload] UserDto $userDto): JsonResponse
     {
         $game = new Game();
         $game->setUserUuid($userDto->userUuid);
@@ -42,17 +45,24 @@ class GameController extends AbstractController
     }
 
     #[Route('/game/{id}/turn', name: 'turn', format: 'json')]
-    public function getCurrentTurn(Game $game)
+    public function getCurrentTurn(Game $game): JsonResponse
     {
         // send info from current turn
-        return $this->json($this->turnRepository->findLastTurn(game: $game));
+        return $this->json($this->turnRepository->findLastTurn($game));
+    }
+
+    #[Route('/game/continue', name: 'continue_game', format: 'json')]
+    public function continuePlaying(#[MapRequestPayload] UserDto $userDto): JsonResponse
+    {
+        // send info from current turn
+        return $this->json($this->gameRepository->findLastGame($userDto->userUuid));
     }
 
     #[Route('/game/{id}/match', name: 'match', format: 'json')]
-    public function matchTiles(Request $request, Game $game)
+    public function matchTiles(Request $request, Game $game): JsonResponse
     {
         $rawData = json_decode($request->getContent(), true);
-        $output = array_map(fn($el) => new Tile($el['x'], $el['y'], $el['z'], $el['t']), $rawData);
+        $output = array_map(fn($el) => (new Tile())->assignFromAssocArray($el), $rawData);
         $turn = new Turn();
         $turn->setGame($game);
         $turn->setField($output);

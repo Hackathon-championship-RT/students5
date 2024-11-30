@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\DBAL\Types\Types;
 use App\Repository\TileTypeRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TileTypeRepository::class)]
 class TileType
@@ -19,8 +19,8 @@ class TileType
     #[ORM\Column(type: Types::STRING)]
     private string $name;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $imagePath;
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $imagePath = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description;
