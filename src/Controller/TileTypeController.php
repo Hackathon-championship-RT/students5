@@ -10,6 +10,7 @@ use App\Dto\TileTypeDto;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,7 +50,7 @@ class TileTypeController extends AbstractController
         $entityManager->persist($tileType);
         $entityManager->flush();
 
-        return $this->json($tileType, JsonResponse::HTTP_CREATED);
+        return $this->json($tileType, Response::HTTP_CREATED);
     }
 
     #[Route('/api/tile-types/{id}', name: 'api_edit_tile_type', format: 'json', methods: ['PUT'])]
@@ -72,6 +73,6 @@ class TileTypeController extends AbstractController
         $entityManager->remove($tileType);
         $entityManager->flush();
 
-        return $this->json(null, JsonResponse::HTTP_NO_CONTENT);
+        return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 }
