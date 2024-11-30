@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class MainPageController extends AbstractController
 {
     #[Route(
-        '',
+        '/',
         name: 'app_mainPage',
         methods: ['GET']
     )]

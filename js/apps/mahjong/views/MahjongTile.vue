@@ -40,8 +40,8 @@
       },
       tileImage() {
         if (this.carId == 1)
-            // return `https://i.postimg.cc/VNs23s58/audi.png`; // Статичное изображение
-            return "/js/assets/1.png";
+            return `https://i.postimg.cc/VNs23s58/audi.png`; // Статичное изображение
+            // return "/js/assets/1.png";
         if (this.carId == 2)
             return 'https://i.postimg.cc/pTGpqRcm/bmw.png';
         if (this.carId == 3)
