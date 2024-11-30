@@ -42,7 +42,7 @@ class GameController extends AbstractController
         $this->entityManager->persist($game);
         $this->entityManager->flush();
 
-        $board = BoardHelper::generateBoard();
+        $board = BoardHelper::generateBoard(9);
         BoardHelper::setCanClick($board);
 
         return $this->json(
@@ -83,13 +83,19 @@ class GameController extends AbstractController
         $turn = new Turn();
         $turn->setGame($game);
         $turn->setField($output);
+        $board = $turn->getField();
+        $cnt = BoardHelper::getMatchCount($board);
+        if ($cnt === 0) {
+            $board = BoardHelper::shuffleTileTypes($board);
+            $turn->setField($board);
+        }
 
         $this->entityManager->persist($turn);
         $this->entityManager->flush();
         return $this->json(
             [
                 'turn' => $turn,
-                'matchCount' => BoardHelper::getMatchCount($turn->getField())
+                'matchCount' => BoardHelper::getMatchCount($board)
             ]
         );
         // if there are no matches return we need to shuffle

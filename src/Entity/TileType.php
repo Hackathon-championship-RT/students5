@@ -53,12 +53,12 @@ class TileType
         return $this;
     }
 
-    public function getImagePath(): string
+    public function getImagePath(): ?string
     {
         return $this->imagePath;
     }
 
-    public function setImagePath(string $imagePath): static
+    public function setImagePath(?string $imagePath): static
     {
         $this->imagePath = $imagePath;
         return $this;
