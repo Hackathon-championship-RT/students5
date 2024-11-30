@@ -11,6 +11,7 @@
     "devDependencies": {
         "css-loader": "7.1.2",
         "esbuild-loader": "4.2.0",
+        "file-loader": "^6.2.0",
         "path": "0.12.7",
         "sass": "^1.81.0",
         "sass-loader": "14.2.1",
@@ -24,7 +25,9 @@
     },
     "dependencies": {
         "@vue/compiler-sfc": "3.4.30",
+        "fileloader": "^2.0.0",
         "svgo": "^3.3.2",
+        "svgo-loader": "^4.0.0",
         "vue": "3.4.30"
     },
     "browserslist": [

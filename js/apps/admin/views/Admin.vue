@@ -56,50 +56,28 @@
       };
     },
     methods: {
-      async login() {
-        try {
-          // Пример авторизации: отправка данных на бэкенд
-          const response = await fetch("/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(this.credentials),
-          });
-          const data = await response.json();
-  
-          if (response.ok) {
-            this.isAuthenticated = true;
-          } else {
-            this.loginError = data.message || "Ошибка авторизации.";
-          }
-        } catch (error) {
-          this.loginError = "Сервер недоступен.";
+      login() {
+        // Успешная авторизация без проверки
+        if (this.credentials.username && this.credentials.password) {
+          this.isAuthenticated = true;
+        } else {
+          this.loginError = "Введите логин и пароль.";
         }
       },
       handleFileUpload(event) {
         this.form.logo = event.target.files[0];
       },
-      async submitData() {
-        const formData = new FormData();
-        formData.append("brand", this.form.brand);
-        formData.append("country", this.form.country);
-        formData.append("description", this.form.description);
-        formData.append("logo", this.form.logo);
+      submitData() {
+        // Имитация успешной загрузки данных
+        console.log("Загружаемые данные:", {
+          brand: this.form.brand,
+          country: this.form.country,
+          description: this.form.description,
+          logo: this.form.logo,
+        });
   
-        try {
-          const response = await fetch("/api/upload", {
-            method: "POST",
-            body: formData,
-          });
-  
-          if (response.ok) {
-            this.uploadSuccess = "Данные успешно загружены!";
-            this.form = { brand: "", country: "", description: "", logo: null };
-          } else {
-            this.uploadSuccess = "Ошибка загрузки данных.";
-          }
-        } catch (error) {
-          this.uploadSuccess = "Сервер недоступен.";
-        }
+        this.uploadSuccess = "Данные успешно загружены!";
+        this.form = { brand: "", country: "", description: "", logo: null };
       },
     },
   };
