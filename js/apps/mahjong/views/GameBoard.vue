@@ -196,8 +196,10 @@
   }
   
   .tile.highlighted {
-    background-color: #ffffff;
+    background-color: #30FEFE;
     transform: scale(1.1);
+    box-shadow: 5px 5px 0px #000000,
+    5px 5px 10px rgba(0, 0, 0, 0.8);
   }
   
   .tile.shake {
