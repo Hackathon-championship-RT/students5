@@ -8,7 +8,7 @@ module.exports = {
             '@main-page': path.resolve(__dirname, 'js/apps/mainPage'),
             '@icons': path.resolve(__dirname, 'design'),
         },
-        extensions: ['.js', '.vue', '.svg'],
+        extensions: ['.js', '.vue'],
     },
     cache: {
         type: 'filesystem',
@@ -30,16 +30,24 @@ module.exports = {
             {
                 test: /\.svg$/,
                 use: [
+                    'vue-loader',
                     {
-                        loader: 'svgo-loader',
+                        loader: 'vue-svg-loader-2',
                         options: {
-                            plugins: [
-                                { name: 'removeTitle', active: true },
-                                { name: 'convertColors', params: { shorthex: false } },
-                                { name: 'convertPathData', active: false }
-                            ]
-                        },
-                    },
+                            svgo: {
+                                plugins: [
+                                    {
+                                        name: "preset-default",
+                                        params: {
+                                            overrides: {
+                                                removeViewBox: false
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
                 ],
             },
             {
