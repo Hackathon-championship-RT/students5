@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-import MainPage from "./views/MainPage.vue";
+import mainPage from "./views/MainPage.vue";
 
-window.mountMainPage = (selector) => {
-    createApp(MainPage).mount(selector);
+window.mountmainPage = (selector) => {
+    createApp(mainPage).mount(selector);
 };
