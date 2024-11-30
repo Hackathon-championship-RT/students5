@@ -1,7 +1,7 @@
 # Требования
-docker
-node.js
-pnpm 
+- docker
+- node.js
+- pnpm 
 
 # Установка
 Склонировать репозиторий (напр в C:\Projects)
