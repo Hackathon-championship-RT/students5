@@ -69,7 +69,6 @@
     width: 60px;
     height: 80px;
     background-color: white;
-    border: 2px solid #333;
     border-radius: 10px;
     position: absolute;
     display: flex;
@@ -77,10 +76,8 @@
     align-items: center;
     cursor: pointer;
     transition: opacity 0.5s ease;
-    box-shadow: 5px 5px 0px rgba(255, 165, 0, 0.6),
+    box-shadow: 5px 5px 0px #30FEFE,
       5px 5px 10px rgba(0, 0, 0, 0.8);
-    border-right: 6px solid #000;
-    border-bottom: 6px solid #000;
   }
   
   .tile.hidden {
