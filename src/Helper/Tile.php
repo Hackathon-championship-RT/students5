@@ -10,6 +10,7 @@ class Tile
     public int $y;
     public int $z;
     public int $t;
+    public bool $canClick = true;
 
     public function assignFromArray(array $array): static
     {
@@ -31,9 +32,6 @@ class Tile
         return $this;
     }
 
-    /**
-     * @param int $t
-     */
     public function setT(int $t): void
     {
         $this->t = $t;
@@ -52,5 +50,35 @@ class Tile
     public function setZ(int $z): void
     {
         $this->z = $z;
+    }
+
+    public function getT(): int
+    {
+        return $this->t;
+    }
+
+    public function getX(): int
+    {
+        return $this->x;
+    }
+
+    public function getY(): int
+    {
+        return $this->y;
+    }
+
+    public function getZ(): int
+    {
+        return $this->z;
+    }
+
+    public function getCanClick(): bool
+    {
+        return $this->canClick;
+    }
+
+    public function setCanClick(bool $canClick): void
+    {
+        $this->canClick = $canClick;
     }
 }
