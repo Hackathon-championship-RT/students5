@@ -135,8 +135,8 @@
         height: "50px",
         backgroundImage:
           i > 2 && i < 8
-            ? "url('https://i.ibb.co/DbDsz8T/photo-2024-11-30-01-57-09-Photoroom.png')" // Другое изображение для первых 5 машинок
-            : "url('https://i.ibb.co/5Fz6tww/image.png')", // Исходное изображение
+            ? "url('https://i.ibb.co/VprfnQr/Photoroom.png')" // Другое изображение для первых 5 машинок
+            : "url('https://i.ibb.co/JnsLX43/IMG-3148-Photoroom.png')", // Исходное изображение
         backgroundSize: "cover",
         backgroundPosition: "center",
         top: `calc(${centerPosition.top}% + ${offsetY}px)`,
@@ -166,13 +166,19 @@
   };
   </script>
   
-  <style scoped>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   #game-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #121212;
     position: relative;
   }
   
@@ -190,7 +196,7 @@
   }
   
   .tile.highlighted {
-    background-color: rgba(255, 255, 0, 0.5);
+    background-color: #ffffff;
     transform: scale(1.1);
   }
   
