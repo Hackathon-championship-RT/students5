@@ -11,17 +11,24 @@ class Tile
     public int $z;
     public int $t;
 
-    public function __construct(
-        int $x,
-        int $y,
-        int $z,
-        int $t,
-    )
+    public function assignFromArray(array $array): static
     {
-        $this->x = $x;
-        $this->y = $y;
-        $this->z = $z;
-        $this->t = $t;
+        $this->x = $array[0];
+        $this->y = $array[1];
+        $this->z = $array[2];
+        $this->t = $array[3];
+
+        return $this;
+    }
+
+    public function assignFromAssocArray(array $array): static
+    {
+        $this->x = $array['x'];
+        $this->y = $array['y'];
+        $this->z = $array['z'];
+        $this->t = $array['t'];
+
+        return $this;
     }
 
     /**
