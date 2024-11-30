@@ -41,14 +41,30 @@ class GameController extends AbstractController
         $game->setStartTime(new \DateTime());
         $this->entityManager->persist($game);
         $this->entityManager->flush();
-        return $this->json(['board' => BoardHelper::generateBoard(), 'game' => $game]);
+
+        $board = BoardHelper::generateBoard();
+        BoardHelper::setCanClick($board);
+
+        return $this->json(
+            [
+                'board' => $board,
+                'game' => $game,
+                'matchCount' => BoardHelper::getMatchCount($board)
+            ]
+        );
     }
 
     #[Route('/game/{id}/turn', name: 'turn', format: 'json')]
     public function getCurrentTurn(Game $game): JsonResponse
     {
         // send info from current turn
-        return $this->json($this->turnRepository->findLastTurn($game));
+        $turn = $this->turnRepository->findLastTurn($game);
+        return $this->json(
+            [
+                'turn' => $turn,
+                'matchCount' => $turn !== null ? BoardHelper::getMatchCount($turn->getField($turn)) : null
+            ]
+        );
     }
 
     #[Route('/game/continue', name: 'continue_game', format: 'json')]
@@ -63,13 +79,19 @@ class GameController extends AbstractController
     {
         $rawData = json_decode($request->getContent(), true);
         $output = array_map(fn($el) => (new Tile())->assignFromAssocArray($el), $rawData);
+        BoardHelper::setCanClick($output);
         $turn = new Turn();
         $turn->setGame($game);
         $turn->setField($output);
 
         $this->entityManager->persist($turn);
         $this->entityManager->flush();
-        return $this->json($turn);
+        return $this->json(
+            [
+                'turn' => $turn,
+                'matchCount' => BoardHelper::getMatchCount($turn->getField())
+            ]
+        );
         // if there are no matches return we need to shuffle
 
         // return OK if nothing happened + match num
